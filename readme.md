@@ -5,7 +5,7 @@ Instale o projeto em seu ambiente de desenvolvimento seguindo as etapas a seguir
 1. No Shell, clonar o repositório do projeto em seu PC.
 
 ```shell
-git clone https://github.com
+git clone https://github.com/lendrw/API-vendas.git
 ```
 
 2. No Shell, acessar a pasta do projeto e instalar as dependências com o `Npm`.
@@ -28,7 +28,7 @@ API_URL=http://localhost:3333
 
 ### Executando o projeto
 
-O projeto inicial contém apenas o arquivo `server.ts` com o um `console.log`. Executar o servidor e observar a mensagem `Olá Dev!` na console do shell:
+O projeto inicial contém apenas o arquivo `server.ts` com o um `console.log`. Executar o servidor e observar a mensagem `Olá Dev!` no console do shell:
 
 ```shell
 npm run dev
