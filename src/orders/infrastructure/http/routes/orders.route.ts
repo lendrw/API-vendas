@@ -1,9 +1,9 @@
-import { Router } from 'express'
-import { createOrderController } from '../controllers/create-order.controller'
-import { isAuthenticated } from '@/common/infrastructure/http/middlewares/isAuthenticated'
-import { getOrderController } from '../controllers/get-order.controller'
+import { Router } from "express";
+import { createOrderController } from "../controllers/create-order.controller";
+import { isAuthenticated } from "@/common/infrastructure/http/middlewares/isAuthenticated";
+import { getOrderController } from "../controllers/get-order.controller";
 
-const ordersRouter = Router()
+const ordersRouter = Router();
 
 /**
  * @swagger
@@ -70,7 +70,7 @@ const ordersRouter = Router()
  *       409:
  *         description: Email already used on another order
  */
-ordersRouter.post('/', isAuthenticated, createOrderController)
+ordersRouter.post("/", isAuthenticated, createOrderController);
 
 /**
  * @swagger
@@ -97,6 +97,6 @@ ordersRouter.post('/', isAuthenticated, createOrderController)
  *       404:
  *         description: Order not found using ID {id}
  */
-ordersRouter.get('/:id', isAuthenticated, getOrderController)
+ordersRouter.get("/:id", isAuthenticated, getOrderController);
 
-export { ordersRouter }
+export { ordersRouter };

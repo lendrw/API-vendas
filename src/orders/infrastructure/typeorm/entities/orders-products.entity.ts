@@ -1,4 +1,4 @@
-import { OrderProductModel } from '@/orders/domain/models/orders-products.model'
+import { OrderProductModel } from "@/orders/domain/models/orders-products.model";
 import {
   Entity,
   Column,
@@ -7,38 +7,38 @@ import {
   UpdateDateColumn,
   ManyToOne,
   JoinColumn,
-} from 'typeorm'
-import { Order } from './orders.entity'
-import { Product } from '@/products/infrastructure/typeorm/entities/products.entity'
+} from "typeorm";
+import { Order } from "./orders.entity";
+import { Product } from "@/products/infrastructure/typeorm/entities/products.entity";
 
-@Entity('orders_products')
+@Entity("orders_products")
 export class OrderProduct implements OrderProductModel {
-  @PrimaryGeneratedColumn('uuid')
-  id: string
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
 
-  @ManyToOne(() => Order, order => order.order_products)
-  @JoinColumn({ name: 'order_id' })
-  order: Order
+  @ManyToOne(() => Order, (order) => order.order_products)
+  @JoinColumn({ name: "order_id" })
+  order: Order;
 
-  @ManyToOne(() => Product, product => product.order_products)
-  @JoinColumn({ name: 'product_id' })
-  product: Product
-
-  @Column()
-  product_id: string
+  @ManyToOne(() => Product, (product) => product.order_products)
+  @JoinColumn({ name: "product_id" })
+  product: Product;
 
   @Column()
-  order_id: string
+  product_id: string;
 
-  @Column('decimal')
-  price: number
+  @Column()
+  order_id: string;
 
-  @Column('int')
-  quantity: number
+  @Column("decimal")
+  price: number;
+
+  @Column("int")
+  quantity: number;
 
   @CreateDateColumn()
-  created_at: Date
+  created_at: Date;
 
   @UpdateDateColumn()
-  updated_at: Date
+  updated_at: Date;
 }

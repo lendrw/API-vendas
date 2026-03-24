@@ -1,35 +1,35 @@
-import { ConflictError } from '@/common/domain/errors/conflict-error'
-import { NotFoundError } from '@/common/domain/errors/not-found-error'
-import { InMemoryRepository } from '@/common/domain/repositories/in-memory.repository'
-import { UserModel } from '@/users/domain/models/users.model'
-import { UsersRepository } from '@/users/domain/repositories/users.repository'
+import { ConflictError } from "@/common/domain/errors/conflict-error";
+import { NotFoundError } from "@/common/domain/errors/not-found-error";
+import { InMemoryRepository } from "@/common/domain/repositories/in-memory.repository";
+import { UserModel } from "@/users/domain/models/users.model";
+import { UsersRepository } from "@/users/domain/repositories/users.repository";
 
 export class UsersInMemoryRepository
   extends InMemoryRepository<UserModel>
   implements UsersRepository
 {
-  sortableFields: string[] = ['name', 'email', 'created_at']
+  sortableFields: string[] = ["name", "email", "created_at"];
 
   async findByEmail(email: string): Promise<UserModel> {
-    const model = this.items.find(item => item.email === email)
+    const model = this.items.find((item) => item.email === email);
     if (!model) {
-      throw new NotFoundError(`User not found using email ${email}`)
+      throw new NotFoundError(`User not found using email ${email}`);
     }
-    return model
+    return model;
   }
 
   async findByName(name: string): Promise<UserModel> {
-    const model = this.items.find(item => item.name === name)
+    const model = this.items.find((item) => item.name === name);
     if (!model) {
-      throw new NotFoundError(`User not found using name ${name}`)
+      throw new NotFoundError(`User not found using name ${name}`);
     }
-    return model
+    return model;
   }
 
   async conflictingEmail(email: string): Promise<void> {
-    const user = this.items.find((item: any) => item.email === email)
+    const user = this.items.find((item: any) => item.email === email);
     if (user) {
-      throw new ConflictError('Email already used on another user')
+      throw new ConflictError("Email already used on another user");
     }
   }
 
@@ -38,11 +38,11 @@ export class UsersInMemoryRepository
     filter: string,
   ): Promise<UserModel[]> {
     if (!filter) {
-      return items
+      return items;
     }
-    return items.filter(item => {
-      return item.name.toLowerCase().includes(filter.toLowerCase())
-    })
+    return items.filter((item) => {
+      return item.name.toLowerCase().includes(filter.toLowerCase());
+    });
   }
 
   protected async applySort(
@@ -50,6 +50,6 @@ export class UsersInMemoryRepository
     sort: string | null,
     sortDir: string | null,
   ): Promise<UserModel[]> {
-    return super.applySort(items, sort ?? 'created_at', sortDir ?? 'desc')
+    return super.applySort(items, sort ?? "created_at", sortDir ?? "desc");
   }
 }

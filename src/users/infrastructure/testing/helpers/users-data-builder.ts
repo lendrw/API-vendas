@@ -1,6 +1,6 @@
-import { faker } from '@faker-js/faker'
-import { randomUUID } from 'node:crypto'
-import { UserModel } from '@/users/domain/models/users.model'
+import { faker } from "@faker-js/faker";
+import { randomUUID } from "node:crypto";
+import { UserModel } from "@/users/domain/models/users.model";
 
 export function UsersDataBuilder(props: Partial<UserModel>): UserModel {
   return {
@@ -11,5 +11,5 @@ export function UsersDataBuilder(props: Partial<UserModel>): UserModel {
     avatar: props.avatar ?? faker.lorem.sentence(),
     created_at: props.created_at ?? new Date(),
     updated_at: props.updated_at ?? new Date(),
-  }
+  };
 }

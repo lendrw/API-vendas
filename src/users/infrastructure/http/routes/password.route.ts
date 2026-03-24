@@ -1,8 +1,8 @@
-import { Router } from 'express'
-import { sendEmailToResetPasswordController } from '../controllers/send-email-to-reset-password.controller'
-import { resetPasswordController } from '../controllers/reset-password.controller'
+import { Router } from "express";
+import { sendEmailToResetPasswordController } from "../controllers/send-email-to-reset-password.controller";
+import { resetPasswordController } from "../controllers/reset-password.controller";
 
-const passwordRouter = Router()
+const passwordRouter = Router();
 
 /**
  * @swagger
@@ -60,7 +60,7 @@ const passwordRouter = Router()
  *       500:
  *         description: Internal server error
  */
-passwordRouter.post('/forgot', sendEmailToResetPasswordController)
+passwordRouter.post("/forgot", sendEmailToResetPasswordController);
 
 /**
  * @swagger
@@ -80,6 +80,6 @@ passwordRouter.post('/forgot', sendEmailToResetPasswordController)
  *       500:
  *         description: Internal server error
  */
-passwordRouter.post('/reset', resetPasswordController)
+passwordRouter.post("/reset", resetPasswordController);
 
-export { passwordRouter }
+export { passwordRouter };

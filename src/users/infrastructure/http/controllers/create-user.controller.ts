@@ -1,9 +1,9 @@
-import { Request, Response } from 'express'
-import { dataValidation } from '@/common/infrastructure/validation/zod'
-import { CreateUserUseCase } from '@/users/application/usecases/create-user.usecase'
-import { container } from 'tsyringe'
-import { z } from 'zod'
-import { instanceToInstance } from 'class-transformer'
+import { Request, Response } from "express";
+import { dataValidation } from "@/common/infrastructure/validation/zod";
+import { CreateUserUseCase } from "@/users/application/usecases/create-user.usecase";
+import { container } from "tsyringe";
+import { z } from "zod";
+import { instanceToInstance } from "class-transformer";
 
 export async function createUserController(
   request: Request,
@@ -13,18 +13,18 @@ export async function createUserController(
     name: z.string(),
     email: z.string().email(),
     password: z.string(),
-  })
+  });
 
-  const { name, email, password } = dataValidation(bodySchema, request.body)
+  const { name, email, password } = dataValidation(bodySchema, request.body);
 
   const createUserUseCase: CreateUserUseCase.UseCase =
-    container.resolve('CreateUserUseCase')
+    container.resolve("CreateUserUseCase");
 
   const user = await createUserUseCase.execute({
     name,
     email,
     password,
-  })
+  });
 
-  return response.status(201).json(instanceToInstance(user))
+  return response.status(201).json(instanceToInstance(user));
 }

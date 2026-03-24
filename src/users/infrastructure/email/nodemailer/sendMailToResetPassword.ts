@@ -1,11 +1,11 @@
-import { apiSendEmail } from '@/common/infrastructure/config/email/nodemailer.sendmail'
-import { UserOutput } from '@/users/application/dtos/user-output.dto'
-import path from 'node:path'
+import { apiSendEmail } from "@/common/infrastructure/config/email/nodemailer.sendmail";
+import { UserOutput } from "@/users/application/dtos/user-output.dto";
+import path from "node:path";
 
 type SendMailToResetPasswordProps = {
-  user: UserOutput
-  token: string
-}
+  user: UserOutput;
+  token: string;
+};
 
 export async function sendMailToResetPassword({
   user,
@@ -13,18 +13,18 @@ export async function sendMailToResetPassword({
 }: SendMailToResetPasswordProps) {
   const emailTemplate = path.resolve(
     __dirname,
-    '..',
-    '..',
-    'views',
-    'forgot_password.hbs',
-  )
+    "..",
+    "..",
+    "views",
+    "forgot_password.hbs",
+  );
 
   await apiSendEmail({
     to: {
       name: user.name,
       email: user.email,
     },
-    subject: 'Recuperação de senha',
+    subject: "Recuperação de senha",
     templateData: {
       file: emailTemplate,
       variables: {
@@ -32,5 +32,5 @@ export async function sendMailToResetPassword({
         link: `http://localhost:3000/reset_password?token=${token}`,
       },
     },
-  })
+  });
 }

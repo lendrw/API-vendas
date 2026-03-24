@@ -1,23 +1,23 @@
-import { inject, injectable } from 'tsyringe'
-import { UsersRepository } from '@/users/domain/repositories/users.repository'
-import { UserOutput } from '../dtos/user-output.dto'
+import { inject, injectable } from "tsyringe";
+import { UsersRepository } from "@/users/domain/repositories/users.repository";
+import { UserOutput } from "../dtos/user-output.dto";
 
 export namespace GetUserUseCase {
   export type Input = {
-    id: string
-  }
+    id: string;
+  };
 
-  export type Output = UserOutput
+  export type Output = UserOutput;
 
   @injectable()
   export class UseCase {
     constructor(
-      @inject('UsersRepository')
+      @inject("UsersRepository")
       private usersRepository: UsersRepository,
     ) {}
 
     async execute(input: Input): Promise<Output> {
-      return this.usersRepository.findById(input.id)
+      return this.usersRepository.findById(input.id);
     }
   }
 }

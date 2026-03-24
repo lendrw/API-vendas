@@ -1,80 +1,81 @@
 import {
   CreateUserProps,
   UsersRepository,
-} from '@/users/domain/repositories/users.repository'
-import { inject, injectable } from 'tsyringe'
-import { ILike, Repository } from 'typeorm'
-import { User } from '../entities/users.entity'
+} from "@/users/domain/repositories/users.repository";
+import { inject, injectable } from "tsyringe";
+import { ILike, Repository } from "typeorm";
+import { User } from "../entities/users.entity";
 import {
   SearchInput,
   SearchOutput,
-} from '@/common/domain/repositories/repository.interface'
-import { UserModel } from '@/users/domain/models/users.model'
-import { NotFoundError } from '@/common/domain/errors/not-found-error'
-import { ConflictError } from '@/common/domain/errors/conflict-error'
+} from "@/common/domain/repositories/repository.interface";
+import { UserModel } from "@/users/domain/models/users.model";
+import { NotFoundError } from "@/common/domain/errors/not-found-error";
+import { ConflictError } from "@/common/domain/errors/conflict-error";
 
 @injectable()
 export class UsersTypeormRepository implements UsersRepository {
-  sortableFields: string[] = ['name', 'created_at']
+  sortableFields: string[] = ["name", "created_at"];
 
   constructor(
-    @inject('UsersDefaultRepositoryTypeorm')
+    @inject("UsersDefaultRepositoryTypeorm")
     private usersRepository: Repository<User>,
   ) {}
 
   async findByEmail(email: string): Promise<UserModel> {
-    const user = await this.usersRepository.findOneBy({ email })
+    const user = await this.usersRepository.findOneBy({ email });
     if (!user) {
-      throw new NotFoundError(`User not found using email ${email}`)
+      throw new NotFoundError(`User not found using email ${email}`);
     }
-    return user
+    return user;
   }
 
   async findByName(name: string): Promise<UserModel> {
-    const user = await this.usersRepository.findOneBy({ name })
+    const user = await this.usersRepository.findOneBy({ name });
     if (!user) {
-      throw new NotFoundError(`User not found using name ${name}`)
+      throw new NotFoundError(`User not found using name ${name}`);
     }
-    return user
+    return user;
   }
 
   async conflictingEmail(email: string): Promise<void> {
-    const user = await this.usersRepository.findOneBy({ email })
+    const user = await this.usersRepository.findOneBy({ email });
     if (user) {
-      throw new ConflictError('Email already used on another user')
+      throw new ConflictError("Email already used on another user");
     }
   }
 
   create(props: CreateUserProps): UserModel {
-    return this.usersRepository.create(props)
+    return this.usersRepository.create(props);
   }
 
   async insert(model: UserModel): Promise<UserModel> {
-    return await this.usersRepository.save(model)
+    return await this.usersRepository.save(model);
   }
 
   async findById(id: string): Promise<UserModel> {
-    return this._get(id)
+    return this._get(id);
   }
 
   async update(model: UserModel): Promise<UserModel> {
-    await this._get(model.id)
-    await this.usersRepository.update({ id: model.id }, model)
-    return model
+    await this._get(model.id);
+    await this.usersRepository.update({ id: model.id }, model);
+    return model;
   }
 
   async delete(id: string): Promise<void> {
-    await this._get(id)
-    await this.usersRepository.delete(id)
+    await this._get(id);
+    await this.usersRepository.delete(id);
   }
 
   async search(props: SearchInput): Promise<SearchOutput<UserModel>> {
-    const validSort = this.sortableFields.includes(props.sort) || false
-    const dirOps = ['asc', 'desc']
+    const validSort = this.sortableFields.includes(props.sort) || false;
+    const dirOps = ["asc", "desc"];
     const validSortDir =
-      (props.sort_dir && dirOps.includes(props.sort_dir.toLowerCase())) || false
-    const orderByField = validSort ? props.sort : 'created_at'
-    const orderByDir = validSortDir ? props.sort_dir : 'desc'
+      (props.sort_dir && dirOps.includes(props.sort_dir.toLowerCase())) ||
+      false;
+    const orderByField = validSort ? props.sort : "created_at";
+    const orderByDir = validSortDir ? props.sort_dir : "desc";
 
     const [users, total] = await this.usersRepository.findAndCount({
       ...(props.filter && {
@@ -87,7 +88,7 @@ export class UsersTypeormRepository implements UsersRepository {
       },
       skip: (props.page - 1) * props.per_page,
       take: props.per_page,
-    })
+    });
 
     return {
       items: users,
@@ -97,14 +98,14 @@ export class UsersTypeormRepository implements UsersRepository {
       sort: props.sort,
       sort_dir: props.sort_dir,
       filter: props.filter,
-    }
+    };
   }
 
   protected async _get(id: string): Promise<UserModel> {
-    const user = await this.usersRepository.findOneBy({ id })
+    const user = await this.usersRepository.findOneBy({ id });
     if (!user) {
-      throw new NotFoundError(`User not found using ID ${id}`)
+      throw new NotFoundError(`User not found using ID ${id}`);
     }
-    return user
+    return user;
   }
 }

@@ -1,13 +1,13 @@
-import { Router } from 'express'
-import { createUserController } from '../controllers/create-user.controller'
-import { searchUserController } from '../controllers/search-user.controller'
-import { isAuthenticated } from '@/common/infrastructure/http/middlewares/isAuthenticated'
-import { upload } from '../middlewares/uploadAvatar'
-import { updateAvatarController } from '../controllers/update-avatar.controller'
-import { getUserController } from '../controllers/get-user.controller'
-import { updateUserController } from '../controllers/update-user.controller'
+import { Router } from "express";
+import { createUserController } from "../controllers/create-user.controller";
+import { searchUserController } from "../controllers/search-user.controller";
+import { isAuthenticated } from "@/common/infrastructure/http/middlewares/isAuthenticated";
+import { upload } from "../middlewares/uploadAvatar";
+import { updateAvatarController } from "../controllers/update-avatar.controller";
+import { getUserController } from "../controllers/get-user.controller";
+import { updateUserController } from "../controllers/update-user.controller";
 
-const usersRouter = Router()
+const usersRouter = Router();
 
 /**
  * @swagger
@@ -116,7 +116,7 @@ const usersRouter = Router()
  *       409:
  *         description: Email already used on another user
  */
-usersRouter.post('/', createUserController)
+usersRouter.post("/", createUserController);
 
 /**
  * @swagger
@@ -163,7 +163,7 @@ usersRouter.post('/', createUserController)
  *             schema:
  *               $ref: '#/components/schemas/UserListResponse'
  */
-usersRouter.get('/', isAuthenticated, searchUserController)
+usersRouter.get("/", isAuthenticated, searchUserController);
 
 /**
  * @swagger
@@ -197,11 +197,11 @@ usersRouter.get('/', isAuthenticated, searchUserController)
  *         description: Some server error
  */
 usersRouter.patch(
-  '/avatar',
+  "/avatar",
   isAuthenticated,
-  upload.single('file'),
+  upload.single("file"),
   updateAvatarController,
-)
+);
 
 /**
  * @swagger
@@ -219,7 +219,7 @@ usersRouter.patch(
  *       401:
  *         description: Unauthorized
  */
-usersRouter.get('/profile', isAuthenticated, getUserController)
+usersRouter.get("/profile", isAuthenticated, getUserController);
 
 /**
  * @swagger
@@ -265,6 +265,6 @@ usersRouter.get('/profile', isAuthenticated, getUserController)
  *       404:
  *         description: The user was not found
  */
-usersRouter.put('/profile', isAuthenticated, updateUserController)
+usersRouter.put("/profile", isAuthenticated, updateUserController);
 
-export { usersRouter }
+export { usersRouter };

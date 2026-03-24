@@ -1,17 +1,17 @@
-import { faker } from '@faker-js/faker'
-import { randomUUID } from 'node:crypto'
-import { CustomersDataBuilder } from '@/customers/infrastructure/testing/helpers/customers-data-builder'
-import { OrderModel } from '@/orders/domain/models/orders.model'
-import { CreateOrderProps } from '@/orders/domain/repositories/orders.repository'
+import { faker } from "@faker-js/faker";
+import { randomUUID } from "node:crypto";
+import { CustomersDataBuilder } from "@/customers/infrastructure/testing/helpers/customers-data-builder";
+import { OrderModel } from "@/orders/domain/models/orders.model";
+import { CreateOrderProps } from "@/orders/domain/repositories/orders.repository";
 
 type BuildOrderProps = CreateOrderProps & {
-  id: string
-  created_at: Date
-  updated_at: Date
-}
+  id: string;
+  created_at: Date;
+  updated_at: Date;
+};
 
 export function OrdersDataBuilder(props: Partial<OrderModel>): BuildOrderProps {
-  const customer_id = props.customer_id ?? randomUUID()
+  const customer_id = props.customer_id ?? randomUUID();
   return {
     id: props.id ?? randomUUID(),
     customer: CustomersDataBuilder({ id: customer_id }),
@@ -35,5 +35,5 @@ export function OrdersDataBuilder(props: Partial<OrderModel>): BuildOrderProps {
         updated_at: props.updated_at ?? new Date(),
       },
     ],
-  }
+  };
 }

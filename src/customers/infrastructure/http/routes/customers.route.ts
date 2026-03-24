@@ -1,10 +1,10 @@
-import { Router } from 'express'
-import { createCustomerController } from '../controllers/create-customer.controller'
-import { isAuthenticated } from '@/common/infrastructure/http/middlewares/isAuthenticated'
-import { searchCustomerController } from '../controllers/search-customer.controller'
-import { getCustomerController } from '../controllers/get-customer.controller'
+import { Router } from "express";
+import { createCustomerController } from "../controllers/create-customer.controller";
+import { isAuthenticated } from "@/common/infrastructure/http/middlewares/isAuthenticated";
+import { searchCustomerController } from "../controllers/search-customer.controller";
+import { getCustomerController } from "../controllers/get-customer.controller";
 
-const customersRouter = Router()
+const customersRouter = Router();
 
 /**
  * @swagger
@@ -74,7 +74,7 @@ const customersRouter = Router()
  *       409:
  *         description: Email already used on another customer
  */
-customersRouter.post('/', isAuthenticated, createCustomerController)
+customersRouter.post("/", isAuthenticated, createCustomerController);
 
 /**
  * @swagger
@@ -123,7 +123,7 @@ customersRouter.post('/', isAuthenticated, createCustomerController)
  *       401:
  *         description: Unauthorized
  */
-customersRouter.get('/', isAuthenticated, searchCustomerController)
+customersRouter.get("/", isAuthenticated, searchCustomerController);
 
 /**
  * @swagger
@@ -150,6 +150,6 @@ customersRouter.get('/', isAuthenticated, searchCustomerController)
  *       404:
  *         description: Poduct not found using ID {id}
  */
-customersRouter.get('/:id', isAuthenticated, getCustomerController)
+customersRouter.get("/:id", isAuthenticated, getCustomerController);
 
-export { customersRouter }
+export { customersRouter };

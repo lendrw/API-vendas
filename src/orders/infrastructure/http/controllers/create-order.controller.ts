@@ -1,8 +1,8 @@
-import { Request, Response } from 'express'
-import { container } from 'tsyringe'
-import { z } from 'zod'
-import { dataValidation } from '@/common/infrastructure/validation/zod'
-import { CreateOrderUseCase } from '@/orders/application/usecases/create-order.usecase'
+import { Request, Response } from "express";
+import { container } from "tsyringe";
+import { z } from "zod";
+import { dataValidation } from "@/common/infrastructure/validation/zod";
+import { CreateOrderUseCase } from "@/orders/application/usecases/create-order.usecase";
 
 export async function createOrderController(
   request: Request,
@@ -16,17 +16,17 @@ export async function createOrderController(
         quantity: z.number().positive(),
       }),
     ),
-  })
+  });
 
-  const { customer_id, products } = dataValidation(bodySchema, request.body)
+  const { customer_id, products } = dataValidation(bodySchema, request.body);
 
   const createOrderUseCase: CreateOrderUseCase.UseCase =
-    container.resolve('CreateOrderUseCase')
+    container.resolve("CreateOrderUseCase");
 
   const order = await createOrderUseCase.execute({
     customer_id,
     products,
-  })
+  });
 
-  return response.status(201).json(order)
+  return response.status(201).json(order);
 }

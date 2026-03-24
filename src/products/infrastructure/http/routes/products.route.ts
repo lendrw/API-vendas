@@ -1,11 +1,11 @@
-import { Router } from 'express'
-import { createProductController } from '../controllers/create-product.controller'
-import { getProductController } from '../controllers/get-product.controller'
-import { updateProductController } from '../controllers/update-product.controller'
-import { deleteProductController } from '../controllers/delete-product.controller'
-import { searchProductController } from '../controllers/search-product.controller'
+import { Router } from "express";
+import { createProductController } from "../controllers/create-product.controller";
+import { getProductController } from "../controllers/get-product.controller";
+import { updateProductController } from "../controllers/update-product.controller";
+import { deleteProductController } from "../controllers/delete-product.controller";
+import { searchProductController } from "../controllers/search-product.controller";
 
-const productsRouter = Router()
+const productsRouter = Router();
 
 /**
  * @swagger
@@ -109,7 +109,7 @@ const productsRouter = Router()
  *       409:
  *         description: Name already used on another product
  */
-productsRouter.post('/', createProductController)
+productsRouter.post("/", createProductController);
 
 /**
  * @swagger
@@ -134,7 +134,7 @@ productsRouter.post('/', createProductController)
  *       404:
  *         description: The product was not found
  */
-productsRouter.get('/:id', getProductController)
+productsRouter.get("/:id", getProductController);
 
 /**
  * @swagger
@@ -169,7 +169,7 @@ productsRouter.get('/:id', getProductController)
  *       409:
  *         description: Name already used on another product
  */
-productsRouter.put('/:id', updateProductController)
+productsRouter.put("/:id", updateProductController);
 
 /**
  * @swagger
@@ -190,7 +190,7 @@ productsRouter.put('/:id', updateProductController)
  *       404:
  *         description: The product was not found
  */
-productsRouter.delete('/:id', deleteProductController)
+productsRouter.delete("/:id", deleteProductController);
 
 /**
  * @swagger
@@ -238,6 +238,6 @@ productsRouter.delete('/:id', deleteProductController)
  *               $ref: '#/components/schemas/ProductListResponse'
  */
 
-productsRouter.get('/', searchProductController)
+productsRouter.get("/", searchProductController);
 
-export { productsRouter }
+export { productsRouter };

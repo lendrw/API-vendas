@@ -1,6 +1,6 @@
-import { AppError } from '@/common/domain/errors/app-error'
-import { NextFunction, Request, Response } from 'express'
-import { MulterError } from 'multer'
+import { AppError } from "@/common/domain/errors/app-error";
+import { NextFunction, Request, Response } from "express";
+import { MulterError } from "multer";
 
 export function errorHandler(
   err: Error,
@@ -10,21 +10,21 @@ export function errorHandler(
 ): Response {
   if (err instanceof AppError) {
     return res.status(err.statusCode).json({
-      status: 'error',
+      status: "error",
       message: err.message,
-    })
+    });
   }
 
   if (err instanceof MulterError) {
     return res.status(400).json({
-      status: 'error',
+      status: "error",
       message: err.message,
-    })
+    });
   }
 
-  console.error(err)
+  console.error(err);
 
   return res
     .status(500)
-    .json({ status: 'error', message: 'Internal Server Error' })
+    .json({ status: "error", message: "Internal Server Error" });
 }

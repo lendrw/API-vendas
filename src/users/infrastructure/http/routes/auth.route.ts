@@ -1,7 +1,7 @@
-import { Router } from 'express'
-import { authenticateUserController } from '../controllers/authenticate-user.controller'
+import { Router } from "express";
+import { authenticateUserController } from "../controllers/authenticate-user.controller";
 
-const authRouter = Router()
+const authRouter = Router();
 
 /**
  * @swagger
@@ -46,6 +46,6 @@ const authRouter = Router()
  *       401:
  *         description: Invalid credentials
  */
-authRouter.post('/login', authenticateUserController)
+authRouter.post("/login", authenticateUserController);
 
-export { authRouter }
+export { authRouter };
