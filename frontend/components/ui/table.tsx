@@ -12,22 +12,22 @@ type Props<T> = {
 
 export default function Table<T>({ columns, data, keyExtractor }: Props<T>) {
   return (
-    <div className="overflow-x-auto rounded-xl border bg-white">
+    <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm">
       <table className="w-full text-sm">
-        <thead className="bg-gray-50 border-b">
-          <tr>
+        <thead>
+          <tr className="border-b border-slate-100">
             {columns.map((col) => (
-              <th key={String(col.key)} className="px-4 py-3 text-left font-medium text-gray-600">
+              <th key={String(col.key)} className="px-5 py-3.5 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">
                 {col.label}
               </th>
             ))}
           </tr>
         </thead>
-        <tbody>
+        <tbody className="divide-y divide-slate-50">
           {data.map((row) => (
-            <tr key={keyExtractor(row)} className="border-b last:border-0 hover:bg-gray-50">
+            <tr key={keyExtractor(row)} className="hover:bg-slate-50 transition-colors">
               {columns.map((col) => (
-                <td key={String(col.key)} className="px-4 py-3 text-gray-700">
+                <td key={String(col.key)} className="px-5 py-4 text-slate-700">
                   {col.render ? col.render(row) : String((row as never)[col.key] ?? "")}
                 </td>
               ))}
@@ -35,8 +35,8 @@ export default function Table<T>({ columns, data, keyExtractor }: Props<T>) {
           ))}
           {data.length === 0 && (
             <tr>
-              <td colSpan={columns.length} className="px-4 py-8 text-center text-gray-400">
-                Nenhum registro encontrado
+              <td colSpan={columns.length} className="px-5 py-12 text-center text-slate-400 text-sm">
+                No records found
               </td>
             </tr>
           )}

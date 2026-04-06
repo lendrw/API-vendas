@@ -6,6 +6,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { customersApi } from "@/lib/api/customers";
 import { formatDate } from "@/lib/utils";
+import { capitalizeName } from "@/lib/utils";
 import type { Customer } from "@/types/customer";
 import PageHeader from "@/components/ui/page-header";
 import Table from "@/components/ui/table";
@@ -53,7 +54,7 @@ export default function CustomersPage() {
   }
 
   const columns = [
-    { key: "name", label: "Name" },
+    { key: "name", label: "Name", render: (c: Customer) => capitalizeName(c.name) },
     { key: "email", label: "Email" },
     {
       key: "created_at", label: "Created at",
@@ -66,7 +67,7 @@ export default function CustomersPage() {
       <PageHeader
         title="Customers"
         action={
-          <button onClick={openCreate} className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700">
+          <button onClick={openCreate} className="bg-indigo-600 text-white px-4 py-2.5 rounded-xl text-sm font-semibold hover:bg-indigo-700 transition">
             + New customer
           </button>
         }
@@ -76,7 +77,7 @@ export default function CustomersPage() {
           placeholder="Search customer..."
           value={filter}
           onChange={(e) => { setFilter(e.target.value); setPage(1); }}
-          className="border rounded-lg px-3 py-2 text-sm w-72 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="border border-slate-200 rounded-xl px-4 py-2.5 text-sm w-72 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
         />
       </div>
       <Table columns={columns} data={data?.items ?? []} keyExtractor={(c) => c.id} />
@@ -85,16 +86,16 @@ export default function CustomersPage() {
       <Modal open={modalOpen} onClose={() => setModalOpen(false)} title="New customer">
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <div>
-            <label className="block text-sm font-medium mb-1">Name</label>
-            <input {...register("name")} className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
-            {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>}
+            <label className="block text-sm font-medium text-slate-700 mb-1.5">Name</label>
+            <input {...register("name")} className="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition" />
+            {errors.name && <p className="text-red-500 text-xs mt-1.5">{errors.name.message}</p>}
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">Email</label>
-            <input {...register("email")} type="email" className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
-            {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
+            <label className="block text-sm font-medium text-slate-700 mb-1.5">Email</label>
+            <input {...register("email")} type="email" className="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition" />
+            {errors.email && <p className="text-red-500 text-xs mt-1.5">{errors.email.message}</p>}
           </div>
-          <button type="submit" disabled={isSubmitting} className="bg-blue-600 text-white rounded-lg py-2 text-sm font-medium hover:bg-blue-700 disabled:opacity-50">
+          <button type="submit" disabled={isSubmitting} className="bg-indigo-600 text-white rounded-xl py-2.5 text-sm font-semibold hover:bg-indigo-700 transition disabled:opacity-50">
             {isSubmitting ? "Saving..." : "Save"}
           </button>
         </form>

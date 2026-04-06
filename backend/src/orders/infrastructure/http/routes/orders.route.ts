@@ -97,6 +97,9 @@ ordersRouter.post("/", isAuthenticated, createOrderController);
  *       404:
  *         description: Order not found using ID {id}
  */
+import { searchOrderController } from "../controllers/search-order.controller";
+
+ordersRouter.get("/", isAuthenticated, searchOrderController);
 ordersRouter.get("/:id", isAuthenticated, getOrderController);
 
 export { ordersRouter };

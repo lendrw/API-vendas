@@ -7,13 +7,15 @@ import {
   CreateOrderProps,
   OrdersRepository,
 } from "@/orders/domain/repositories/orders.repository";
-import { inject } from "tsyringe";
+import { inject, injectable } from "tsyringe";
 import { DataSource, Repository } from "typeorm";
 import { Order } from "../entities/orders.entity";
+import { OrderProduct } from "../entities/orders-products.entity";
 import { ProductsTypeormRepository } from "@/products/infrastructure/typeorm/repositories/products-typeorm.repository";
 import { NotFoundError } from "@/common/domain/errors/not-found-error";
 import { BadRequestError } from "@/common/domain/errors/bad-request-error";
 
+@injectable()
 export class OrdersTypeormRepository implements OrdersRepository {
   constructor(
     @inject("OrdersDefaultRepositoryTypeorm")
@@ -48,9 +50,19 @@ export class OrdersTypeormRepository implements OrdersRepository {
         // Criar pedido
         const newOrder = transactionalEntityManager.create(Order, {
           customer_id: customer.id,
-          order_products: serializedOrderProducts,
         });
         const order = await transactionalEntityManager.save(newOrder);
+
+        // Criar itens do pedido com order_id
+        const orderProductsEntities = serializedOrderProducts.map((op) =>
+          transactionalEntityManager.create(OrderProduct, {
+            order_id: order.id,
+            product_id: op.product_id,
+            quantity: op.quantity,
+            price: op.price,
+          }),
+        );
+        order.order_products = await transactionalEntityManager.save(orderProductsEntities);
 
         // Atualizar estoque de cada produto
         for (const product of requestedProducts) {
@@ -87,7 +99,20 @@ export class OrdersTypeormRepository implements OrdersRepository {
   }
 
   search(props: SearchInput): Promise<SearchOutput<OrderModel>> {
-    throw new Error("Method not implemented.");
+    return this.ordersRepository.findAndCount({
+      relations: { order_products: true },
+      skip: (props.page - 1) * props.per_page,
+      take: props.per_page,
+      order: { created_at: "DESC" },
+    }).then(([items, total]) => ({
+      items,
+      total,
+      current_page: props.page,
+      per_page: props.per_page,
+      sort: props.sort,
+      sort_dir: props.sort_dir,
+      filter: props.filter,
+    }));
   }
 
   protected async _get(id: string): Promise<OrderModel> {
