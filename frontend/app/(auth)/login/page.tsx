@@ -29,54 +29,26 @@ export default function LoginPage() {
 
   return (
     <>
-      <h1 className="text-2xl font-bold text-slate-900 mb-1">Welcome back</h1>
-      <p className="text-slate-500 text-sm mb-8">Sign in to your account to continue</p>
-
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
+      <h1 className="text-2xl font-bold mb-6 text-center">Sign in</h1>
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-1.5">Email</label>
-          <input
-            {...register("email")}
-            type="email"
-            placeholder="you@example.com"
-            className="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm bg-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
-          />
-          {errors.email && <p className="text-red-500 text-xs mt-1.5">{errors.email.message}</p>}
+          <label className="block text-sm font-medium mb-1">Email</label>
+          <input {...register("email")} type="email" className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
         </div>
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-1.5">Password</label>
-          <input
-            {...register("password")}
-            type="password"
-            placeholder="••••••••"
-            className="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm bg-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
-          />
-          {errors.password && <p className="text-red-500 text-xs mt-1.5">{errors.password.message}</p>}
+          <label className="block text-sm font-medium mb-1">Password</label>
+          <input {...register("password")} type="password" className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>}
         </div>
-        {errors.root && (
-          <div className="bg-red-50 border border-red-200 rounded-xl px-4 py-3 text-red-600 text-sm text-center">
-            {errors.root.message}
-          </div>
-        )}
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="w-full bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl py-2.5 text-sm font-semibold transition disabled:opacity-50 disabled:cursor-not-allowed"
-        >
+        {errors.root && <p className="text-red-500 text-sm text-center">{errors.root.message}</p>}
+        <button type="submit" disabled={isSubmitting} className="bg-blue-600 text-white rounded-lg py-2 text-sm font-medium hover:bg-blue-700 disabled:opacity-50">
           {isSubmitting ? "Signing in..." : "Sign in"}
         </button>
       </form>
-
-      <div className="mt-6 flex flex-col gap-2 text-sm text-center">
-        <Link href="/forgot-password" className="text-indigo-600 hover:text-indigo-700 font-medium">
-          Forgot your password?
-        </Link>
-        <p className="text-slate-500">
-          Don&apos;t have an account?{" "}
-          <Link href="/register" className="text-indigo-600 hover:text-indigo-700 font-medium">
-            Create one
-          </Link>
-        </p>
+      <div className="mt-4 text-sm text-center flex flex-col gap-1">
+        <Link href="/forgot-password" className="text-blue-600 hover:underline">Forgot password</Link>
+        <Link href="/register" className="text-gray-500 hover:underline">Create account</Link>
       </div>
     </>
   );

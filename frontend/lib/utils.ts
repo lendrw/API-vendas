@@ -5,11 +5,3 @@ export function formatDate(date: string | Date): string {
   const yyyy = d.getFullYear();
   return `${mm}/${dd}/${yyyy}`;
 }
-
-export function capitalizeName(name: string): string {
-  return name
-    .trim()
-    .split(" ")
-    .map((w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
-    .join(" ");
-}

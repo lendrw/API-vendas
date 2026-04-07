@@ -96,7 +96,7 @@ export default function ProductsPage() {
       <PageHeader
         title="Products"
         action={
-          <button onClick={openCreate} className="bg-indigo-600 text-white px-4 py-2.5 rounded-xl text-sm font-semibold hover:bg-indigo-700 transition">
+          <button onClick={openCreate} className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700">
             + New product
           </button>
         }
@@ -106,7 +106,7 @@ export default function ProductsPage() {
           placeholder="Search product..."
           value={filter}
           onChange={(e) => { setFilter(e.target.value); setPage(1); }}
-          className="border border-slate-200 rounded-xl px-4 py-2.5 text-sm w-72 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+          className="border rounded-lg px-3 py-2 text-sm w-72 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
       <Table columns={columns} data={data?.items ?? []} keyExtractor={(p) => p.id} />
@@ -124,12 +124,12 @@ export default function ProductsPage() {
       <Modal open={modalOpen} onClose={() => setModalOpen(false)} title={editing ? "Edit product" : "New product"}>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">Name</label>
-            <input {...register("name")} className="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition" />
-            {errors.name && <p className="text-red-500 text-xs mt-1.5">{errors.name.message}</p>}
+            <label className="block text-sm font-medium mb-1">Name</label>
+            <input {...register("name")} className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>}
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">Price</label>
+            <label className="block text-sm font-medium mb-1">Price</label>
             <Controller
               name="price"
               control={control}
@@ -157,19 +157,19 @@ export default function ProductsPage() {
                       setPriceCents(cents);
                       field.onChange(cents / 100);
                     }}
-                    className="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                    className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
               )}
             />
-            {errors.price && <p className="text-red-500 text-xs mt-1.5">{errors.price.message}</p>}
+            {errors.price && <p className="text-red-500 text-xs mt-1">{errors.price.message}</p>}
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">Stock</label>
-            <input {...register("quantity")} type="number" min="0" className="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition" />
-            {errors.quantity && <p className="text-red-500 text-xs mt-1.5">{errors.quantity.message}</p>}
+            <label className="block text-sm font-medium mb-1">Stock</label>
+            <input {...register("quantity")} type="number" min="0" className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            {errors.quantity && <p className="text-red-500 text-xs mt-1">{errors.quantity.message}</p>}
           </div>
-          <button type="submit" disabled={isSubmitting} className="bg-indigo-600 text-white rounded-xl py-2.5 text-sm font-semibold hover:bg-indigo-700 transition disabled:opacity-50">
+          <button type="submit" disabled={isSubmitting} className="bg-blue-600 text-white rounded-lg py-2 text-sm font-medium hover:bg-blue-700 disabled:opacity-50">
             {isSubmitting ? "Saving..." : "Save"}
           </button>
         </form>
