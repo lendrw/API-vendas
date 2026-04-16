@@ -116,7 +116,7 @@ export default function CustomersPage() {
         }
       />
 
-      <div className="mb-4 relative w-72">
+      <div className="mb-4 relative w-full md:w-72">
         <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
         <input
           placeholder="Search customers..."

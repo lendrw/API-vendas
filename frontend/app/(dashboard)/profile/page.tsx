@@ -15,7 +15,7 @@ import { useToast } from "@/components/ui/toast";
 const schema = z
   .object({
     name: z.string().min(1, "Name is required"),
-    email: z.string().email("Invalid email"),
+    email: z.email("Invalid email"),
     old_password: z.string().optional(),
     password: z.string().optional(),
   })
