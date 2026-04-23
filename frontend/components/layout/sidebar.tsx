@@ -116,7 +116,7 @@ export default function Sidebar() {
   return (
     <>
       {/* Desktop sidebar */}
-      <aside className="hidden md:flex min-h-screen shrink-0">
+      <aside className="hidden md:flex h-screen shrink-0">
         <SidebarContent />
       </aside>
 
