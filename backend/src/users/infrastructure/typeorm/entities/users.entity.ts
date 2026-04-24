@@ -36,6 +36,7 @@ export class User implements UserModel {
   @Expose({ name: "avatar_url" })
   getAvatarUrl() {
     if (!this.avatar) return null;
-    return `${env.CLOUDFLARE_R2_URL}/${this.avatar}`;
+    const publicUrl = env.CLOUDFLARE_R2_PUBLIC_URL || env.CLOUDFLARE_R2_URL;
+    return `${publicUrl}/${this.avatar}`;
   }
 }

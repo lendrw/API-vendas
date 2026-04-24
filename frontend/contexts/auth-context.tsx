@@ -11,6 +11,7 @@ type AuthContextType = {
   loading: boolean;
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
+  syncUser: (user: User) => void;
 };
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
@@ -43,8 +44,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     router.push("/login");
   }
 
+  function syncUser(user: User) {
+    setUser(user);
+  }
+
   return (
-    <AuthContext.Provider value={{ user, loading, login, logout }}>
+    <AuthContext.Provider value={{ user, loading, login, logout, syncUser }}>
       {children}
     </AuthContext.Provider>
   );

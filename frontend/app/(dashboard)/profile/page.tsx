@@ -27,7 +27,7 @@ const schema = z
 type FormData = z.infer<typeof schema>;
 
 export default function ProfilePage() {
-  const { user } = useAuth();
+  const { user, syncUser } = useAuth();
   const { toast } = useToast();
   const fileRef = useRef<HTMLInputElement>(null);
 
@@ -44,7 +44,8 @@ export default function ProfilePage() {
 
   async function onSubmit(data: FormData) {
     try {
-      await usersApi.updateProfile(data);
+      const updatedUser = await usersApi.updateProfile(data);
+      syncUser(updatedUser);
       toast("Profile updated successfully");
     } catch {
       toast("Failed to update profile", "error");
@@ -58,7 +59,8 @@ export default function ProfilePage() {
     formData.append("user_id", user.id);
     formData.append("file", file);
     try {
-      await usersApi.updateAvatar(formData);
+      const updatedUser = await usersApi.updateAvatar(formData);
+      syncUser(updatedUser);
       toast("Avatar updated");
     } catch {
       toast("Failed to update avatar", "error");
@@ -82,7 +84,7 @@ export default function ProfilePage() {
               >
                 {user?.avatar ? (
                   <img
-                    src={`${process.env.NEXT_PUBLIC_R2_URL}/${user.avatar}`}
+                    src={user.avatar_url ?? ""}
                     alt="avatar"
                     className="w-full h-full object-cover"
                   />
