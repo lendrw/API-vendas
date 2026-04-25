@@ -25,7 +25,8 @@ const schema = z.object({
   quantity: z.coerce.number().int().min(0, "Invalid quantity"),
 });
 
-type FormData = z.infer<typeof schema>;
+type FormInput = z.input<typeof schema>;
+type FormData = z.output<typeof schema>;
 
 // Stable formatter — created once, not on every render
 const currencyFormatter = new Intl.NumberFormat("en-US", {
@@ -61,7 +62,7 @@ export default function ProductsPage() {
     reset,
     control,
     formState: { errors, isSubmitting },
-  } = useForm<FormData>({
+  } = useForm<FormInput, unknown, FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
       name: "",
@@ -271,12 +272,12 @@ export default function ProductsPage() {
                   inputMode="numeric"
                   value={formatCurrency(priceCents)}
                   onFocus={(e) => {
-                    const l = e.target.value.length;
-                    e.target.setSelectionRange(l, l);
+                    const l = e.currentTarget.value.length;
+                    e.currentTarget.setSelectionRange(l, l);
                   }}
                   onClick={(e) => {
-                    const l = e.target.value.length;
-                    e.target.setSelectionRange(l, l);
+                    const l = e.currentTarget.value.length;
+                    e.currentTarget.setSelectionRange(l, l);
                   }}
                   onKeyDown={(e) => {
                     const el = e.currentTarget;
@@ -284,7 +285,7 @@ export default function ProductsPage() {
                     setTimeout(() => el.setSelectionRange(l, l), 0);
                   }}
                   onChange={(e) => {
-                    const digits = e.target.value.replace(/\D/g, "");
+                    const digits = e.currentTarget.value.replace(/\D/g, "");
                     const cents = parseInt(digits || "0", 10);
                     setPriceCents(cents);
                     field.onChange(cents / 100);
