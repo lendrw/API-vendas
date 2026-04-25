@@ -10,7 +10,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
           <div className="w-9 h-9 rounded-xl bg-emerald-500 flex items-center justify-center shadow-sm">
             <Store size={18} className="text-white" />
           </div>
-          <span className="font-semibold text-slate-900 text-lg">API Vendas</span>
+          <span className="font-semibold text-slate-900 text-lg">Sales Management</span>
         </Link>
         {/* Card */}
         <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8">

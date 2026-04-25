@@ -1,6 +1,6 @@
-# API Vendas
+# Sales Management
 
-API Vendas is a full-stack sales management project with a Node.js/Express backend and a Next.js frontend.
+Sales Management is a full-stack sales management project with a Node.js/Express backend and a Next.js frontend.
 
 The application includes authentication, password reset flow, product management, customer management, orders, profile handling, PostgreSQL persistence, API documentation, unit tests, integration tests, and Cypress end-to-end tests.
 
@@ -549,4 +549,3 @@ npm run dev -- -p 3001
 | Backend API | `http://localhost:3333` |
 | Swagger Docs | `http://localhost:3333/docs` |
 | PostgreSQL | `localhost:5432` |
-

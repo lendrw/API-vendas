@@ -4,7 +4,7 @@ import { AuthProvider } from "@/contexts/auth-context";
 import { ToastProvider } from "@/components/ui/toast";
 
 export const metadata: Metadata = {
-  title: "API Vendas",
+  title: "Sales Management",
   description: "",
 };
 

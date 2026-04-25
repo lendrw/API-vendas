@@ -5,13 +5,13 @@ Install the project in your development environment by following the steps below
 1. In the shell, clone the project repository to your computer.
 
 ```shell
-git clone https://github.com/lendrw/API-vendas.git
+git clone https://github.com/lendrw/sales-management.git
 ```
 
 2. In the shell, access the project folder and install the dependencies with `npm`.
 
 ```shell
-cd
+cd sales-management
 
 npm ci
 ```

@@ -26,7 +26,7 @@ export async function apiSendEmail(props: SendEmailProps): Promise<void> {
   transporter.sendMail(
     {
       from: {
-        name: props.from?.name || "API Vendas",
+        name: props.from?.name || "Sales Management",
         address: props.from?.email || "leandrocabral321@gmail.com",
       },
       to: {

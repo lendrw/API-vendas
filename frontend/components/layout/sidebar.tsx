@@ -34,7 +34,7 @@ function SidebarContent({ onClose }: { onClose?: () => void }) {
           <div className="w-8 h-8 rounded-lg bg-emerald-500 flex items-center justify-center">
             <Store size={16} className="text-white" />
           </div>
-          <span className="font-semibold text-sm tracking-tight">API Vendas</span>
+          <span className="font-semibold text-sm tracking-tight">Sales Management</span>
         </Link>
         {onClose && (
           <button onClick={onClose} className="text-slate-400 hover:text-white transition-colors md:hidden">
@@ -135,7 +135,7 @@ export default function Sidebar() {
           <div className="w-7 h-7 rounded-lg bg-emerald-500 flex items-center justify-center">
             <Store size={14} className="text-white" />
           </div>
-          <span className="font-semibold text-sm text-white tracking-tight">API Vendas</span>
+          <span className="font-semibold text-sm text-white tracking-tight">Sales Management</span>
         </Link>
       </header>
 
